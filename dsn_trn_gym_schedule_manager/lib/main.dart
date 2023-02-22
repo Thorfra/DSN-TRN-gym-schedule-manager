@@ -19,10 +19,9 @@ class MainApp extends StatelessWidget {
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           const Image(
-              image: AssetImage('assets/image/logo/logo.png'),
-              width: 128,
-              height: 128),
-          SizedBox(height: 5),
+            image: AssetImage('assets/images/logo/2.0x/logo.png'),
+          ),
+          SizedBox(height: 10),
           ElevatedButton.icon(
             icon: Icon(Icons.arrow_forward),
             label: Text("Vai alle schede"),
