@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'elenco_schede.dart';
-import 'crea_mod_schede.dart';
+import 'pagine/elenco_schede.dart';
+import 'pagine/crea_mod_schede.dart';
 
 void main() {
   runApp(const MaterialApp(home: MainApp()));
@@ -26,7 +26,7 @@ class MainApp extends StatelessWidget {
             icon: Icon(Icons.arrow_forward),
             label: Text("Vai alle schede"),
             style: ElevatedButton.styleFrom(
-              primary: Colors.black,
+              backgroundColor: Colors.black,
             ),
             onPressed: () {
               Navigator.push(context,
@@ -38,7 +38,7 @@ class MainApp extends StatelessWidget {
             icon: Icon(Icons.arrow_forward),
             label: Text("Crea o modifica schede"),
             style: ElevatedButton.styleFrom(
-              primary: Colors.black,
+              backgroundColor: Colors.black,
             ),
             onPressed: () {
               Navigator.push(context,
