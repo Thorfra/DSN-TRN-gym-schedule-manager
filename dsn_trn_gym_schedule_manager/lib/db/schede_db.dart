@@ -1,4 +1,7 @@
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+import 'dart:async';
+import 'package:flutter/widgets.dart';
 import 'package:dsn_trn_gym_schedule_manager1/db/scheda.dart';
 
 class SchedeBD {
@@ -23,11 +26,28 @@ class SchedeBD {
   }
 
   Future _createDB(Database db, int version) async {
+    final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+    final textType = 'TEXT NOT NULL';
+    final textTypen = 'TEXT';
+    final intType = 'INTEGER NOT NULL';
+
     await db.execute('''
       CREATE TABLE $table(
-        
+        ${CampiScheda.id} $idType,
+        ${CampiScheda.nomeEsercizio} $textType,
+        ${CampiScheda.ripetizioni} $intType,
+        ${CampiScheda.serie} $intType,
+        ${CampiScheda.tempoPausa} $intType,
+        ${CampiScheda.nomeScheda} $textType,
+        ${CampiScheda.carichi} $textTypen,
+        ${CampiScheda.appunti} $textTypen 
       )
     ''');
+  }
+
+  Future<Scheda> create(Scheda scheda) async {
+    final db = await instance.database;
+    final id = await db.insert(table, scheda.toJson());
   }
 
   Future close() async {

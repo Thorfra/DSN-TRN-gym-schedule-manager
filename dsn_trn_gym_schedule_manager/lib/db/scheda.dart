@@ -12,53 +12,58 @@ class CampiScheda {
     appunti
   ];
 
-  static const String id = '_id';
-  static const String nomeEsercizio = 'nome_esercizio';
-  static const String ripetizioni = 'ripetizioni';
-  static const String serie = 'serie';
-  static const String tempoPausa = 'tempo_pausa';
-  static const String nomeScheda = 'nome_scheda';
-  static const String carichi = 'carichi';
-  static const String appunti = 'appunti';
+  static final String id = '_id';
+  static final String nomeEsercizio = 'nome_esercizio';
+  static final String ripetizioni = 'ripetizioni';
+  static final String serie = 'serie';
+  static final String tempoPausa = 'tempo_pausa';
+  static final String nomeScheda = 'nome_scheda';
+  static final String carichi = 'carichi';
+  static final String appunti = 'appunti';
 }
 
 class Scheda {
-  static final int id;
-  static final String nome_esercizio;
-  static final int ripetizioni;
-  static final int serie;
-  static final int tempo_pausa;
-  static final String nome_scheda;
-  static final String carichi;
-  static final String appunti;
+  final int? id;
+  final String nomeEsercizio;
+  final int ripetizioni;
+  final int serie;
+  final int tempoPausa;
+  final String nomeScheda;
+  final String? carichi;
+  final String? appunti;
 
-/*
-  const Note({
+  const Scheda({
     this.id,
-    required this.isImportant,
-    required this.number,
-    required this.title,
-    required this.description,
-    required this.createdTime,
+    required this.nomeEsercizio,
+    required this.ripetizioni,
+    required this.serie,
+    required this.tempoPausa,
+    required this.nomeScheda,
+    this.carichi,
+    this.appunti,
   });
 
-  Note copy({
+  Scheda copy({
     int? id,
-    bool? isImportant,
-    int? number,
-    String? title,
-    String? description,
-    DateTime? createdTime,
+    String? nomeEsercizio,
+    int? ripetizioni,
+    int? serie,
+    int? tempoPausa,
+    String? nomeScheda,
+    String? carichi,
+    String? appunti,
   }) =>
-      Note(
+      Scheda(
         id: id ?? this.id,
-        isImportant: isImportant ?? this.isImportant,
-        number: number ?? this.number,
-        title: title ?? this.title,
-        description: description ?? this.description,
-        createdTime: createdTime ?? this.createdTime,
+        nomeEsercizio: nomeEsercizio ?? this.nomeEsercizio,
+        ripetizioni: ripetizioni ?? this.ripetizioni,
+        serie: serie ?? this.serie,
+        tempoPausa: tempoPausa ?? this.tempoPausa,
+        nomeScheda: nomeScheda ?? this.nomeScheda,
+        carichi: carichi ?? this.carichi,
+        appunti: appunti ?? this.appunti,
       );
-
+/*
   static Note fromJson(Map<String, Object?> json) => Note(
         id: json[NoteFields.id] as int?,
         isImportant: json[NoteFields.isImportant] == 1,
@@ -66,14 +71,16 @@ class Scheda {
         title: json[NoteFields.title] as String,
         description: json[NoteFields.description] as String,
         createdTime: DateTime.parse(json[NoteFields.time] as String),
-      );
+      );*/
 
   Map<String, Object?> toJson() => {
-        NoteFields.id: id,
-        NoteFields.title: title,
-        NoteFields.isImportant: isImportant ? 1 : 0,
-        NoteFields.number: number,
-        NoteFields.description: description,
-        NoteFields.time: createdTime.toIso8601String(),
-      };*/
+        CampiScheda.id: id,
+        CampiScheda.nomeEsercizio: nomeEsercizio,
+        CampiScheda.ripetizioni: ripetizioni,
+        CampiScheda.serie: serie,
+        CampiScheda.tempoPausa: tempoPausa,
+        CampiScheda.nomeScheda: nomeScheda,
+        CampiScheda.carichi: carichi,
+        CampiScheda.appunti: appunti,
+      };
 }
