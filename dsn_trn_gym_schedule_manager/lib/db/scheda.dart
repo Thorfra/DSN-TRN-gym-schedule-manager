@@ -12,14 +12,14 @@ class CampiScheda {
     appunti
   ];
 
-  static final String id = '_id';
-  static final String nomeEsercizio = 'nome_esercizio';
-  static final String ripetizioni = 'ripetizioni';
-  static final String serie = 'serie';
-  static final String tempoPausa = 'tempo_pausa';
-  static final String nomeScheda = 'nome_scheda';
-  static final String carichi = 'carichi';
-  static final String appunti = 'appunti';
+  static const String id = '_id';
+  static const String nomeEsercizio = 'nome_esercizio';
+  static const String ripetizioni = 'ripetizioni';
+  static const String serie = 'serie';
+  static const String tempoPausa = 'tempo_pausa';
+  static const String nomeScheda = 'nome_scheda';
+  static const String carichi = 'carichi';
+  static const String appunti = 'appunti';
 }
 
 class Scheda {
@@ -63,15 +63,17 @@ class Scheda {
         carichi: carichi ?? this.carichi,
         appunti: appunti ?? this.appunti,
       );
-/*
-  static Note fromJson(Map<String, Object?> json) => Note(
-        id: json[NoteFields.id] as int?,
-        isImportant: json[NoteFields.isImportant] == 1,
-        number: json[NoteFields.number] as int,
-        title: json[NoteFields.title] as String,
-        description: json[NoteFields.description] as String,
-        createdTime: DateTime.parse(json[NoteFields.time] as String),
-      );*/
+
+  static Scheda fromJson(Map<String, Object?> json) => Scheda(
+        id: json[CampiScheda.id] as int?,
+        nomeEsercizio: json[CampiScheda.nomeEsercizio] as String,
+        ripetizioni: json[CampiScheda.ripetizioni] as int,
+        serie: json[CampiScheda.serie] as int,
+        tempoPausa: json[CampiScheda.tempoPausa] as int,
+        nomeScheda: json[CampiScheda.nomeScheda] as String,
+        carichi: json[CampiScheda.carichi] as String,
+        appunti: json[CampiScheda.appunti] as String,
+      );
 
   Map<String, Object?> toJson() => {
         CampiScheda.id: id,

@@ -1,8 +1,6 @@
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
-import 'package:flutter/widgets.dart';
-import 'package:dsn_trn_gym_schedule_manager1/db/scheda.dart';
+import 'scheda.dart';
 
 class SchedeBD {
   static final SchedeBD instance = SchedeBD._init();
@@ -13,7 +11,6 @@ class SchedeBD {
 
   Future<Database> get database async {
     if (_database != null) return _database!;
-
     _database = await _initDB('schede.db');
     return _database!;
   }
@@ -26,10 +23,10 @@ class SchedeBD {
   }
 
   Future _createDB(Database db, int version) async {
-    final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-    final textType = 'TEXT NOT NULL';
-    final textTypen = 'TEXT';
-    final intType = 'INTEGER NOT NULL';
+    const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+    const textType = 'TEXT NOT NULL';
+    const textTypen = 'TEXT';
+    const intType = 'INTEGER NOT NULL';
 
     await db.execute('''
       CREATE TABLE $table(
@@ -48,6 +45,21 @@ class SchedeBD {
   Future<Scheda> create(Scheda scheda) async {
     final db = await instance.database;
     final id = await db.insert(table, scheda.toJson());
+    return scheda.copy(id: id);
+  }
+
+  Future<Scheda> readScheda(int id) async {
+    final db = await instance.database;
+    final maps = await db.query(
+      table,
+      columns: CampiScheda.values,
+      where: '${CampiScheda.id}=?',
+      whereArgs: [id],
+    );
+
+    if (maps.isNotEmpty) {
+      return Scheda.fromJson(maps.first);
+    }
   }
 
   Future close() async {
