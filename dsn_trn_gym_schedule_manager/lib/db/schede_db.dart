@@ -1,70 +1,42 @@
+import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'dart:async';
 import 'scheda.dart';
 
 class SchedeBD {
-  static final SchedeBD instance = SchedeBD._init();
-
-  static Database? _database;
-
-  SchedeBD._init();
-
-  Future<Database> get database async {
-    if (_database != null) return _database!;
-    _database = await _initDB('schede.db');
-    return _database!;
-  }
-
-  Future<Database> _initDB(String filePath) async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, filePath);
-
-    return await openDatabase(path, version: 1, onCreate: _createDB);
-  }
-
-  Future _createDB(Database db, int version) async {
+  Future<Database> initializeDb() async {
+    String path = await getDatabasesPath();
     const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
     const textType = 'TEXT NOT NULL';
     const textTypen = 'TEXT';
     const intType = 'INTEGER NOT NULL';
 
-    await db.execute('''
-      CREATE TABLE $table(
-        ${CampiScheda.id} $idType,
-        ${CampiScheda.nomeEsercizio} $textType,
-        ${CampiScheda.ripetizioni} $intType,
-        ${CampiScheda.serie} $intType,
-        ${CampiScheda.tempoPausa} $intType,
-        ${CampiScheda.nomeScheda} $textType,
-        ${CampiScheda.carichi} $textTypen,
-        ${CampiScheda.appunti} $textTypen 
-      )
-    ''');
+    return openDatabase(join(path, "dbschede.db"),
+        onCreate: (db, version) async {
+      await db.execute('''
+            CREATE TABLE $table(
+              id $idType,
+              nomeEsercizio $textType,
+              ripetizioni $intType,
+              serie $intType,
+              tempoPausa $intType,
+              nomeScheda $textType,
+              carichi $textTypen,
+              appunti $textTypen 
+            )
+          ''');
+    }, version: 1);
   }
 
-  Future<Scheda> create(Scheda scheda) async {
-    final db = await instance.database;
-    final id = await db.insert(table, scheda.toJson());
-    return scheda.copy(id: id);
+  Future<int> createItem(Scheda scheda) async {
+    final Database db = await initializeDb();
+    final id = await db.insert('Schede', scheda.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    return id;
   }
 
-  Future<Scheda> readScheda(int id) async {
-    final db = await instance.database;
-    final maps = await db.query(
-      table,
-      columns: CampiScheda.values,
-      where: '${CampiScheda.id}=?',
-      whereArgs: [id],
-    );
-
-    if (maps.isNotEmpty) {
-      return Scheda.fromJson(maps.first);
-    }
-  }
-
-  Future close() async {
-    final db = await instance.database;
-
-    db.close();
+  Future<List<Scheda>> getSchede() async {
+    final db = await initializeDb();
+    final List<Map<String, dynamic>> results = await db.query("Schede");
+    return results.map((e) => Scheda.fromMap(e)).toList();
   }
 }

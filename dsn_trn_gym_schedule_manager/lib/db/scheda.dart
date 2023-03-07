@@ -1,27 +1,5 @@
 const String table = 'Scheda';
 
-class CampiScheda {
-  static final List<String> values = [
-    id,
-    nomeEsercizio,
-    ripetizioni,
-    serie,
-    tempoPausa,
-    nomeScheda,
-    carichi,
-    appunti
-  ];
-
-  static const String id = '_id';
-  static const String nomeEsercizio = 'nome_esercizio';
-  static const String ripetizioni = 'ripetizioni';
-  static const String serie = 'serie';
-  static const String tempoPausa = 'tempo_pausa';
-  static const String nomeScheda = 'nome_scheda';
-  static const String carichi = 'carichi';
-  static const String appunti = 'appunti';
-}
-
 class Scheda {
   final int? id;
   final String nomeEsercizio;
@@ -32,7 +10,7 @@ class Scheda {
   final String? carichi;
   final String? appunti;
 
-  const Scheda({
+  Scheda({
     this.id,
     required this.nomeEsercizio,
     required this.ripetizioni,
@@ -43,46 +21,26 @@ class Scheda {
     this.appunti,
   });
 
-  Scheda copy({
-    int? id,
-    String? nomeEsercizio,
-    int? ripetizioni,
-    int? serie,
-    int? tempoPausa,
-    String? nomeScheda,
-    String? carichi,
-    String? appunti,
-  }) =>
-      Scheda(
-        id: id ?? this.id,
-        nomeEsercizio: nomeEsercizio ?? this.nomeEsercizio,
-        ripetizioni: ripetizioni ?? this.ripetizioni,
-        serie: serie ?? this.serie,
-        tempoPausa: tempoPausa ?? this.tempoPausa,
-        nomeScheda: nomeScheda ?? this.nomeScheda,
-        carichi: carichi ?? this.carichi,
-        appunti: appunti ?? this.appunti,
-      );
+  Scheda.fromMap(Map<String, dynamic> map)
+      : id = map["id"],
+        nomeEsercizio = map["nomeEsercizio"],
+        ripetizioni = map["ripetizioni"],
+        serie = map["serie"],
+        tempoPausa = map["tempoPausa"],
+        nomeScheda = map["nomeScheda"],
+        carichi = map["carichi"],
+        appunti = map["appunti"];
 
-  static Scheda fromJson(Map<String, Object?> json) => Scheda(
-        id: json[CampiScheda.id] as int?,
-        nomeEsercizio: json[CampiScheda.nomeEsercizio] as String,
-        ripetizioni: json[CampiScheda.ripetizioni] as int,
-        serie: json[CampiScheda.serie] as int,
-        tempoPausa: json[CampiScheda.tempoPausa] as int,
-        nomeScheda: json[CampiScheda.nomeScheda] as String,
-        carichi: json[CampiScheda.carichi] as String,
-        appunti: json[CampiScheda.appunti] as String,
-      );
-
-  Map<String, Object?> toJson() => {
-        CampiScheda.id: id,
-        CampiScheda.nomeEsercizio: nomeEsercizio,
-        CampiScheda.ripetizioni: ripetizioni,
-        CampiScheda.serie: serie,
-        CampiScheda.tempoPausa: tempoPausa,
-        CampiScheda.nomeScheda: nomeScheda,
-        CampiScheda.carichi: carichi,
-        CampiScheda.appunti: appunti,
-      };
+  Map<String, dynamic> toMap() {
+    return {
+      "id": id,
+      "nomeEsercizio": nomeEsercizio,
+      "ripetizioni": ripetizioni,
+      "serie": serie,
+      "tempoPausa": tempoPausa,
+      "nomeScheda": nomeScheda,
+      "carichi": carichi,
+      "appunti": appunti
+    };
+  }
 }

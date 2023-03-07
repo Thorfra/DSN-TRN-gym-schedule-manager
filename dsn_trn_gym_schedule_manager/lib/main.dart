@@ -3,17 +3,26 @@ import 'pagine/elenco_schede.dart';
 import 'pagine/crea_mod_schede.dart';
 
 void main() {
-  runApp(const MaterialApp(home: MainApp()));
+  runApp(const MaterialApp(
+    home: MainApp(),
+    debugShowCheckedModeBanner: false,
+  ));
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[800],
       appBar: AppBar(
-        title: Text("Home page"),
+        title: const Text("Home page"),
         backgroundColor: Colors.black,
       ),
       body: Center(
@@ -21,28 +30,32 @@ class MainApp extends StatelessWidget {
           const Image(
             image: AssetImage('assets/images/logo/2.0x/logo.png'),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           ElevatedButton.icon(
-            icon: Icon(Icons.arrow_forward),
-            label: Text("Vai alle schede"),
+            icon: const Icon(Icons.arrow_forward),
+            label: const Text("Vai alle schede"),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black,
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Elenco_schede()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Elenco_schede()));
             },
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           ElevatedButton.icon(
-            icon: Icon(Icons.arrow_forward),
-            label: Text("Crea o modifica schede"),
+            icon: const Icon(Icons.arrow_forward),
+            label: const Text("Crea o modifica schede"),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black,
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Crea_mod_schede()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Crea_mod_schede()));
             },
           ),
         ]),
