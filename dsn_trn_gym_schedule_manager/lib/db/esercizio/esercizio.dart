@@ -1,33 +1,31 @@
-const String table = 'Scheda';
-
-class Scheda {
+class Esercizio {
   final int? id;
   final String nomeEsercizio;
   final int ripetizioni;
   final int serie;
   final int tempoPausa;
-  final String nomeScheda;
+  final String idScheda;
   final String? carichi;
   final String? appunti;
 
-  Scheda({
+  Esercizio({
     this.id,
     required this.nomeEsercizio,
     required this.ripetizioni,
     required this.serie,
     required this.tempoPausa,
-    required this.nomeScheda,
+    required this.idScheda,
     this.carichi,
     this.appunti,
   });
 
-  Scheda.fromMap(Map<String, dynamic> map)
+  Esercizio.fromMap(Map<String, dynamic> map)
       : id = map["id"],
         nomeEsercizio = map["nomeEsercizio"],
         ripetizioni = map["ripetizioni"],
         serie = map["serie"],
         tempoPausa = map["tempoPausa"],
-        nomeScheda = map["nomeScheda"],
+        idScheda = map["idScheda"],
         carichi = map["carichi"],
         appunti = map["appunti"];
 
@@ -38,7 +36,7 @@ class Scheda {
       "ripetizioni": ripetizioni,
       "serie": serie,
       "tempoPausa": tempoPausa,
-      "nomeScheda": nomeScheda,
+      "idScheda": idScheda,
       "carichi": carichi,
       "appunti": appunti
     };

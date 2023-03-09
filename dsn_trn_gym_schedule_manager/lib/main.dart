@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'pagine/elenco_schede.dart';
 import 'pagine/crea_mod_schede.dart';
 
 void main() {
@@ -34,20 +33,6 @@ class _MainAppState extends State<MainApp> {
           ElevatedButton.icon(
             icon: const Icon(Icons.arrow_forward),
             label: const Text("Vai alle schede"),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const Elenco_schede()));
-            },
-          ),
-          const SizedBox(height: 5),
-          ElevatedButton.icon(
-            icon: const Icon(Icons.arrow_forward),
-            label: const Text("Crea o modifica schede"),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black,
             ),
