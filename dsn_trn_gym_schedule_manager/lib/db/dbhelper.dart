@@ -24,12 +24,12 @@ class DbHelper {
               nomeScheda $textType,
               carichi $textTypen,
               appunti $textTypen 
-            )
+            );""");
 
-            CREATE TABLE IF NOT EXISTS Schede(
+      await db.execute("""CREATE TABLE IF NOT EXISTS Schede(
               id $idType,
               nomeScheda $textType
-            )""");
+            );""");
     }, version: 1);
   }
 

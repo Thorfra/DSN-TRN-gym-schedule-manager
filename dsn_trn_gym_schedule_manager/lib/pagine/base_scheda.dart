@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import '../db/esercizio/esercizio.dart';
 import '../db/scheda/scheda.dart';
 import '../db/dbhelper.dart';
-import 'base_scheda.dart';
 
-class Crea_mod_schede extends StatefulWidget {
-  const Crea_mod_schede({super.key});
+class Base_scheda extends StatefulWidget {
+  final Scheda scheda;
+  const Base_scheda({super.key,required this.scheda});
 
   @override
-  State<Crea_mod_schede> createState() => _Crea_mod_schedeState();
+  State<Base_scheda> createState() => Base_schedaState();
 }
 
-class _Crea_mod_schedeState extends State<Crea_mod_schede> {
+class Base_schedaState extends State<Base_scheda> {
   late DbHelper _dbHelper;
+  Future<List<Esercizio>>? _esercizi;
   Future<List<Scheda>>? _schede;
-  TextEditingController c1 = TextEditingController();
 
   @override
   void initState() {
@@ -22,7 +23,7 @@ class _Crea_mod_schedeState extends State<Crea_mod_schede> {
     _dbHelper = DbHelper();
     _dbHelper.initializeDb().whenComplete(() async {
       setState(() {
-        _schede = _dbHelper.getSchede();
+        _esercizi = _dbHelper.getEsercizi();
       });
     });
   }
@@ -32,7 +33,7 @@ class _Crea_mod_schedeState extends State<Crea_mod_schede> {
     return Scaffold(
       backgroundColor: Colors.grey[500],
       appBar: AppBar(
-        title: const Text("Crea o modifica le schede"),
+        title: scheda.nomeScheda,
         backgroundColor: Colors.black,
       ),
       floatingActionButton: FloatingActionButton(
@@ -99,13 +100,7 @@ class _Crea_mod_schedeState extends State<Crea_mod_schede> {
                       title: Text(snapshot.data![index].nomeScheda),
                       subtitle: const Text("Clicca per vedere la scheda"),
                       trailing: const Icon(Icons.navigate_next),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Base_scheda(
-                                    scheda: snapshot.data![index])));
-                      },
+                      onTap: ()=> ,
                     );
                   });
             }
