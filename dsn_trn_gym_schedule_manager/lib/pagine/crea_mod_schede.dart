@@ -100,11 +100,9 @@ class _Crea_mod_schedeState extends State<Crea_mod_schede> {
                       subtitle: const Text("Clicca per vedere la scheda"),
                       trailing: const Icon(Icons.navigate_next),
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Base_scheda(
-                                    scheda: snapshot.data![index])));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: ((context) =>
+                                (Base_scheda(scheda: snapshot.data![index])))));
                       },
                     );
                   });
