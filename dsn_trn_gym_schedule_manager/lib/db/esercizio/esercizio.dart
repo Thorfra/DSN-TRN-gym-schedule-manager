@@ -4,7 +4,7 @@ class Esercizio {
   final int ripetizioni;
   final int serie;
   final int tempoPausa;
-  final String idScheda;
+  final int? idScheda;
   final String? carichi;
   final String? appunti;
 

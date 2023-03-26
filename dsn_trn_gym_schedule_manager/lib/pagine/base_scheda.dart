@@ -4,9 +4,9 @@ import '../db/scheda/scheda.dart';
 import '../db/dbhelper.dart';
 
 class Base_scheda extends StatefulWidget {
-  final Scheda scheda;//questo non funziona
-  const Base_scheda({super.key,required this.scheda});
-  
+  final Scheda scheda;
+  const Base_scheda({super.key, required this.scheda});
+
   @override
   State<Base_scheda> createState() => Base_schedaState();
 }
@@ -14,7 +14,6 @@ class Base_scheda extends StatefulWidget {
 class Base_schedaState extends State<Base_scheda> {
   late DbHelper _dbHelper;
   Future<List<Esercizio>>? _esercizi;
-  Future<List<Scheda>>? _schede;
 
   TextEditingController cNomeEsercizio = TextEditingController();
   TextEditingController cRipetizioni = TextEditingController();
@@ -40,7 +39,7 @@ class Base_schedaState extends State<Base_scheda> {
     return Scaffold(
       backgroundColor: Colors.grey[500],
       appBar: AppBar(
-        title: scheda.nomeScheda,//non vede la variabile che ho passato sopra
+        title: Text(widget.scheda.nomeScheda),
         backgroundColor: Colors.black,
       ),
       floatingActionButton: FloatingActionButton(
@@ -59,31 +58,26 @@ class Base_schedaState extends State<Base_scheda> {
                           decoration:
                               const InputDecoration(hintText: "Nome Esercizio"),
                         ),
-
                         TextFormField(
                           controller: cRipetizioni,
-                          decoration:
-                              const InputDecoration(hintText: "Numero Ripetizioni"),
+                          decoration: const InputDecoration(
+                              hintText: "Numero Ripetizioni"),
                         ),
-                        
                         TextFormField(
                           controller: cSerie,
                           decoration:
                               const InputDecoration(hintText: "Numero Serie"),
                         ),
-                        
                         TextFormField(
                           controller: cTempoPausa,
-                          decoration:
-                              const InputDecoration(hintText: "Secondi di pausa"),
+                          decoration: const InputDecoration(
+                              hintText: "Secondi di pausa"),
                         ),
-                        
                         TextFormField(
                           controller: cCarichi,
                           decoration:
                               const InputDecoration(hintText: "Carichi"),
                         ),
-                        
                         TextFormField(
                           controller: cAppunti,
                           decoration:
@@ -99,7 +93,7 @@ class Base_schedaState extends State<Base_scheda> {
                               ripetizioni: int.parse(cRipetizioni.text),
                               serie: int.parse(cSerie.text),
                               tempoPausa: int.parse(cTempoPausa.text),
-                              idScheda: scheda.id,//non vede l'oggetto
+                              idScheda: widget.scheda.id,
                               carichi: cCarichi.text,
                               appunti: cAppunti.text,
                             );
@@ -137,15 +131,15 @@ class Base_schedaState extends State<Base_scheda> {
                         color: Colors.grey,
                       ),
                   itemCount: snapshot.data!.length,
-                  itemBuilder://trovare un modo per visualizzare i dati dell'esercizio
-                  /* (context, index) {
+                  itemBuilder: //trovare un modo per visualizzare i dati dell'esercizio
+                      (context, index) {
                     return ListTile(
                       title: Text(snapshot.data![index].nomeEsercizio),
                       subtitle: const Text("Clicca per vedere la scheda"),
                       trailing: const Icon(Icons.navigate_next),
-                      onTap: ()=> ,
+                      onTap: () {},
                     );
-                  }*/);
+                  });
             }
           }),
     );
