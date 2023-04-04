@@ -11,6 +11,7 @@ class DbHelper {
     const textType = 'TEXT NOT NULL';
     const textTypen = 'TEXT';
     const intType = 'INTEGER NOT NULL';
+    const intTypen = 'INTEGER';
 
     return openDatabase(join(path, "dbPalestra.db"),
         onCreate: (db, version) async {
@@ -21,9 +22,10 @@ class DbHelper {
               ripetizioni $intType,
               serie $intType,
               tempoPausa $intType,
-              nomeScheda $textType,
+              idScheda $intType,
               carichi $textTypen,
-              appunti $textTypen 
+              appunti $textTypen,
+              FOREIGN KEY (idScheda) REFERENCES Schede(id) 
             );""");
 
       await db.execute("""CREATE TABLE IF NOT EXISTS Schede(
