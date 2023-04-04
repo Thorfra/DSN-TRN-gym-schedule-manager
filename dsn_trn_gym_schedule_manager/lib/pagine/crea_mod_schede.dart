@@ -55,6 +55,8 @@ class _Crea_mod_schedeState extends State<Crea_mod_schede> {
                     ),
                     actions: [
                       ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black),
                           onPressed: () {
                             String nome = c1.text;
                             Scheda scheda = Scheda(
@@ -70,6 +72,8 @@ class _Crea_mod_schedeState extends State<Crea_mod_schede> {
                           },
                           child: const Text("Aggiungi")),
                       ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black),
                           onPressed: () {
                             Navigator.pop(contex);
                           },

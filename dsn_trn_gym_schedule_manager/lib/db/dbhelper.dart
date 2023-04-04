@@ -11,7 +11,6 @@ class DbHelper {
     const textType = 'TEXT NOT NULL';
     const textTypen = 'TEXT';
     const intType = 'INTEGER NOT NULL';
-    const intTypen = 'INTEGER';
 
     return openDatabase(join(path, "dbPalestra.db"),
         onCreate: (db, version) async {

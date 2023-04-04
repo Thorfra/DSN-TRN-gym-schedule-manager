@@ -36,8 +36,9 @@ class Base_schedaState extends State<Base_scheda> {
 
   @override
   Widget build(BuildContext context) {
+    const String secondi = '"';
     return Scaffold(
-      backgroundColor: Colors.grey[500],
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: Text(widget.scheda.nomeScheda),
         backgroundColor: Colors.black,
@@ -50,6 +51,7 @@ class Base_schedaState extends State<Base_scheda> {
                 context: context,
                 builder: (contex) {
                   return AlertDialog(
+                    scrollable: true,
                     title: const Text("Inserimento esercizio"),
                     content: Column(
                       children: [
@@ -87,6 +89,8 @@ class Base_schedaState extends State<Base_scheda> {
                     ),
                     actions: [
                       ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black),
                           onPressed: () {
                             Esercizio esercizio = Esercizio(
                               nomeEsercizio: cNomeEsercizio.text,
@@ -107,6 +111,8 @@ class Base_schedaState extends State<Base_scheda> {
                           },
                           child: const Text("Aggiungi")),
                       ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black),
                           onPressed: () {
                             Navigator.pop(contex);
                           },
@@ -131,13 +137,56 @@ class Base_schedaState extends State<Base_scheda> {
                         color: Colors.grey,
                       ),
                   itemCount: snapshot.data!.length,
-                  itemBuilder: //trovare un modo per visualizzare i dati dell'esercizio
-                      (context, index) {
+                  itemBuilder: (context, index) {
                     return ListTile(
-                      title: Text(snapshot.data![index].nomeEsercizio),
-                      subtitle: const Text("Clicca per vedere la scheda"),
+                      isThreeLine: true,
+                      title: Text(
+                        snapshot.data![index].nomeEsercizio,
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 18),
+                      ),
+                      subtitle: Text(
+                        "${snapshot.data![index].serie} x ${snapshot.data![index].ripetizioni}  \nPausa: ${snapshot.data![index].tempoPausa}$secondi",
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 14),
+                      ),
                       trailing: const Icon(Icons.navigate_next),
-                      onTap: () {},
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                scrollable: true,
+                                content: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "Carichi",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      snapshot.data![index].carichi.toString(),
+                                    ),
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    const Text(
+                                      "Appunti",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      snapshot.data![index].appunti.toString(),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            });
+                      },
                     );
                   });
             }
