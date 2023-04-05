@@ -40,7 +40,7 @@ class _MainAppState extends State<MainApp> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const Crea_mod_schede()));
+                      builder: (context) => const CreaModSchede()));
             },
           ),
         ]),

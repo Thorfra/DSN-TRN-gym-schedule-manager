@@ -3,15 +3,15 @@ import '../db/esercizio/esercizio.dart';
 import '../db/scheda/scheda.dart';
 import '../db/dbhelper.dart';
 
-class Base_scheda extends StatefulWidget {
+class BaseScheda extends StatefulWidget {
   final Scheda scheda;
-  const Base_scheda({super.key, required this.scheda});
+  const BaseScheda({super.key, required this.scheda});
 
   @override
-  State<Base_scheda> createState() => Base_schedaState();
+  State<BaseScheda> createState() => BaseSchedaState();
 }
 
-class Base_schedaState extends State<Base_scheda> {
+class BaseSchedaState extends State<BaseScheda> {
   late DbHelper _dbHelper;
   Future<List<Esercizio>>? _esercizi;
 

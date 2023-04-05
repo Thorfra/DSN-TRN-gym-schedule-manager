@@ -3,14 +3,14 @@ import '../db/scheda/scheda.dart';
 import '../db/dbhelper.dart';
 import 'base_scheda.dart';
 
-class Crea_mod_schede extends StatefulWidget {
-  const Crea_mod_schede({super.key});
+class CreaModSchede extends StatefulWidget {
+  const CreaModSchede({super.key});
 
   @override
-  State<Crea_mod_schede> createState() => _Crea_mod_schedeState();
+  State<CreaModSchede> createState() => _CreaModSchedeState();
 }
 
-class _Crea_mod_schedeState extends State<Crea_mod_schede> {
+class _CreaModSchedeState extends State<CreaModSchede> {
   late DbHelper _dbHelper;
   Future<List<Scheda>>? _schede;
   TextEditingController c1 = TextEditingController();
@@ -106,7 +106,7 @@ class _Crea_mod_schedeState extends State<Crea_mod_schede> {
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: ((context) =>
-                                (Base_scheda(scheda: snapshot.data![index])))));
+                                (BaseScheda(scheda: snapshot.data![index])))));
                       },
                     );
                   });
