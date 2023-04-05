@@ -14,6 +14,11 @@ class DbHelper {
 
     return openDatabase(join(path, "dbPalestra.db"),
         onCreate: (db, version) async {
+      await db.execute("""CREATE TABLE IF NOT EXISTS Schede(
+              id $idType,
+              nomeScheda $textType
+            );""");
+
       await db.execute("""
             CREATE TABLE IF NOT EXISTS Esercizi(
               id $idType,
@@ -25,11 +30,6 @@ class DbHelper {
               carichi $textTypen,
               appunti $textTypen,
               FOREIGN KEY (idScheda) REFERENCES Schede(id) 
-            );""");
-
-      await db.execute("""CREATE TABLE IF NOT EXISTS Schede(
-              id $idType,
-              nomeScheda $textType
             );""");
     }, version: 1);
   }

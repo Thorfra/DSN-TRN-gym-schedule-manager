@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../db/esercizio/esercizio.dart';
 import '../db/scheda/scheda.dart';
 import '../db/dbhelper.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BaseScheda extends StatefulWidget {
   final Scheda scheda;
@@ -56,6 +57,7 @@ class BaseSchedaState extends State<BaseScheda> {
                     content: Column(
                       children: [
                         TextFormField(
+                          textCapitalization: TextCapitalization.words,
                           controller: cNomeEsercizio,
                           decoration:
                               const InputDecoration(hintText: "Nome Esercizio"),
@@ -125,8 +127,11 @@ class BaseSchedaState extends State<BaseScheda> {
           future: _esercizi,
           builder: (context, AsyncSnapshot<List<Esercizio>> snapshot) {
             if (snapshot.data != null && snapshot.data!.isEmpty) {
-              return const Center(
-                child: Text("Nessun esercizio presente nella scheda"),
+              return Center(
+                child: Text(
+                  "Nessun esercizio presente nella scheda",
+                  style: GoogleFonts.bebasNeue(fontSize: 17),
+                ),
               );
             }
             if (!snapshot.hasData) {
@@ -139,16 +144,18 @@ class BaseSchedaState extends State<BaseScheda> {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     return ListTile(
+                      contentPadding:
+                          const EdgeInsets.only(right: 15, left: 15),
                       isThreeLine: true,
                       title: Text(
                         snapshot.data![index].nomeEsercizio,
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 18),
+                        style: GoogleFonts.bebasNeue(
+                            color: Colors.black, fontSize: 19),
                       ),
                       subtitle: Text(
                         "${snapshot.data![index].serie} x ${snapshot.data![index].ripetizioni}  \nPausa: ${snapshot.data![index].tempoPausa}$secondi",
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 14),
+                        style: GoogleFonts.bebasNeue(
+                            color: Colors.black, fontSize: 15),
                       ),
                       trailing: const Icon(Icons.navigate_next),
                       onTap: () {
@@ -161,21 +168,22 @@ class BaseSchedaState extends State<BaseScheda> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
+                                    Text(
                                       "Carichi",
-                                      style: TextStyle(
+                                      style: GoogleFonts.bebasNeue(
                                           fontSize: 15,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       snapshot.data![index].carichi.toString(),
+                                      style: GoogleFonts.bebasNeue(),
                                     ),
                                     const SizedBox(
                                       height: 4,
                                     ),
-                                    const Text(
+                                    Text(
                                       "Appunti",
-                                      style: TextStyle(
+                                      style: GoogleFonts.bebasNeue(
                                           fontSize: 15,
                                           fontWeight: FontWeight.bold),
                                     ),

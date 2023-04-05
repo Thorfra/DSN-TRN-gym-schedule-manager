@@ -30,7 +30,7 @@ class _CreaModSchedeState extends State<CreaModSchede> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[500],
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: const Text("Crea o modifica le schede"),
         backgroundColor: Colors.black,
@@ -87,7 +87,10 @@ class _CreaModSchedeState extends State<CreaModSchede> {
           builder: (context, AsyncSnapshot<List<Scheda>> snapshot) {
             if (snapshot.data != null && snapshot.data!.isEmpty) {
               return const Center(
-                child: Text("Nessuna scheda nel database."),
+                child: Text(
+                  "Nessuna scheda nel database.",
+                  style: TextStyle(fontSize: 17),
+                ),
               );
             }
             if (!snapshot.hasData) {

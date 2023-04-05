@@ -19,7 +19,7 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[500],
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: const Text("Home page"),
         backgroundColor: Colors.black,
