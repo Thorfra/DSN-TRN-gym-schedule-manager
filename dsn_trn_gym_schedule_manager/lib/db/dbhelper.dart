@@ -14,6 +14,9 @@ class DbHelper {
 
     return openDatabase(join(path, "dbPalestra.db"),
         onCreate: (db, version) async {
+      //se continua a non andare, provare ad inserire questa query nella funzione rimuoviScheda
+      await db.execute("""PRAGMA foreign_keys = on""");
+
       await db.execute("""CREATE TABLE IF NOT EXISTS Schede(
               id $idType,
               nomeScheda $textType
@@ -29,7 +32,7 @@ class DbHelper {
               idScheda $intType,
               carichi $textTypen,
               appunti $textTypen,
-              FOREIGN KEY (idScheda) REFERENCES Schede(id) 
+              FOREIGN KEY (idScheda) REFERENCES Schede(id) ON DELETE CASCADE
             );""");
     }, version: 1);
   }
@@ -63,8 +66,8 @@ class DbHelper {
 
   Future<int> removeScheda(id) async {
     final Database db = await initializeDb();
-    final idRimosso = await db.delete('Schede', where: "id=?", whereArgs: [id]);
-    return idRimosso;
+    final idRimossa = await db.delete('Schede', where: "id=?", whereArgs: [id]);
+    return idRimossa;
   }
 
   Future<List<Scheda>> getSchede() async {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../db/scheda/scheda.dart';
 import '../db/dbhelper.dart';
 import 'base_scheda.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class CreaModSchede extends StatefulWidget {
   const CreaModSchede({super.key});
@@ -92,8 +93,7 @@ class _CreaModSchedeState extends State<CreaModSchede> {
                   style: TextStyle(fontSize: 17),
                 ),
               );
-            }
-            if (!snapshot.hasData) {
+            } else if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
             } else {
               return ListView.separated(
@@ -102,15 +102,61 @@ class _CreaModSchedeState extends State<CreaModSchede> {
                       ),
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(snapshot.data![index].nomeScheda),
-                      subtitle: const Text("Clicca per vedere la scheda"),
-                      trailing: const Icon(Icons.navigate_next),
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: ((context) =>
-                                (BaseScheda(scheda: snapshot.data![index])))));
-                      },
+                    return Slidable(
+                      startActionPane: ActionPane(
+                        motion: const StretchMotion(),
+                        children: [
+                          SlidableAction(
+                            onPressed: (_) {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text("Eliminazione Scheda"),
+                                  content: const Text(
+                                      "Si desidera davvero elimminare la scheda selezionata?"),
+                                  icon: const Icon(Icons.delete),
+                                  iconColor: Colors.red,
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          _dbHelper.removeScheda(
+                                              snapshot.data![index].id!);
+                                          setState(() {
+                                            _schede = _dbHelper.getSchede();
+                                          });
+                                          Navigator.of(context).pop();
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                            duration: Duration(seconds: 1),
+                                            content: Text("Scheda eliminata!"),
+                                          ));
+                                        },
+                                        child: const Text("Sì")),
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text("No")),
+                                  ],
+                                ),
+                              );
+                            },
+                            icon: Icons.delete,
+                            foregroundColor: Colors.red,
+                            label: "Elimina",
+                          ),
+                        ],
+                      ),
+                      child: ListTile(
+                        title: Text(snapshot.data![index].nomeScheda),
+                        subtitle: const Text("Clicca per vedere la scheda"),
+                        trailing: const Icon(Icons.navigate_next),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: ((context) => (BaseScheda(
+                                  scheda: snapshot.data![index])))));
+                        },
+                      ),
                     );
                   });
             }
