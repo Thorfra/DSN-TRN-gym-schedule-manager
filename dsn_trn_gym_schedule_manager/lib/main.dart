@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'pagine/crea_mod_schede.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    home: MainApp(),
+  runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      fontFamily: GoogleFonts.bebasNeue().fontFamily,
+      primaryColor: Colors.black,
+      colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.black),
+    ),
+    home: const MainApp(),
   ));
 }
 
-class MainApp extends StatefulWidget {
+class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
-  @override
-  State<MainApp> createState() => _MainAppState();
-}
-
-class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +28,7 @@ class _MainAppState extends State<MainApp> {
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           const Image(
-            image: AssetImage('assets/images/logo/2.0x/logo.png'),
+            image: AssetImage('assets/images/logo/2.0x/logo.jpg'),
           ),
           const SizedBox(height: 10),
           ElevatedButton.icon(

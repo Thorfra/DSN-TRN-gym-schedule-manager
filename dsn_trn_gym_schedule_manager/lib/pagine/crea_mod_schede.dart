@@ -70,6 +70,7 @@ class _CreaModSchedeState extends State<CreaModSchede> {
                               _schede = _dbHelper.getSchede();
                             });
                             Navigator.pop(contex);
+                            c1.clear();
                           },
                           child: const Text("Aggiungi")),
                       ElevatedButton(
