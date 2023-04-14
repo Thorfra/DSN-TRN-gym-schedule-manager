@@ -136,7 +136,10 @@ class BaseSchedaState extends State<BaseScheda> {
               );
             }
             if (!snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                  child: CircularProgressIndicator(
+                color: Colors.black,
+              ));
             } else {
               return ListView.separated(
                   separatorBuilder: (context, index) => const Divider(

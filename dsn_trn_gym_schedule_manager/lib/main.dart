@@ -3,19 +3,27 @@ import 'pagine/crea_mod_schede.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      fontFamily: GoogleFonts.bebasNeue().fontFamily,
-      primaryColor: Colors.black,
-      colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.black),
-    ),
-    home: const MainApp(),
-  ));
+  runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: GoogleFonts.bebasNeue().fontFamily,
+        primarySwatch: Colors.grey,
+      ),
+      home: const MyHome(),
+    );
+  }
+}
+
+class MyHome extends StatelessWidget {
+  const MyHome({super.key});
 
   @override
   Widget build(BuildContext context) {
