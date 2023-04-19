@@ -31,13 +31,10 @@ class _CreaModSchedeState extends State<CreaModSchede> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: const Text("Crea o modifica le schede"),
-        backgroundColor: Colors.black,
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.black,
           child: const Icon(Icons.add),
           onPressed: () {
             showDialog(
@@ -56,8 +53,6 @@ class _CreaModSchedeState extends State<CreaModSchede> {
                     ),
                     actions: [
                       ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black),
                           onPressed: () {
                             String nome = c1.text;
                             Scheda scheda = Scheda(
@@ -74,8 +69,6 @@ class _CreaModSchedeState extends State<CreaModSchede> {
                           },
                           child: const Text("Aggiungi")),
                       ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black),
                           onPressed: () {
                             Navigator.pop(contex);
                           },
@@ -114,7 +107,7 @@ class _CreaModSchedeState extends State<CreaModSchede> {
                                 builder: (context) => AlertDialog(
                                   title: const Text("Eliminazione Scheda"),
                                   content: const Text(
-                                      "Si desidera davvero elimminare la scheda selezionata?"),
+                                      "Si desidera davvero eliminare la scheda selezionata?"),
                                   icon: const Icon(Icons.delete),
                                   iconColor: Colors.red,
                                   actions: [
@@ -128,8 +121,14 @@ class _CreaModSchedeState extends State<CreaModSchede> {
                                           Navigator.of(context).pop();
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(const SnackBar(
-                                            duration: Duration(seconds: 1),
-                                            content: Text("Scheda eliminata!"),
+                                            backgroundColor: Color(0xFF202020),
+                                            duration: Duration(
+                                                seconds: 1, milliseconds: 5),
+                                            content: Text(
+                                              "Scheda eliminata!",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
                                           ));
                                         },
                                         child: const Text("Sì")),
@@ -144,6 +143,7 @@ class _CreaModSchedeState extends State<CreaModSchede> {
                             },
                             icon: Icons.delete,
                             foregroundColor: Colors.red,
+                            backgroundColor: const Color(0xFF202020),
                             label: "Elimina",
                           ),
                         ],

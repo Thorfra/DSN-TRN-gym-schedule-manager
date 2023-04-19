@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../db/esercizio/esercizio.dart';
 import '../db/scheda/scheda.dart';
 import '../db/dbhelper.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class BaseScheda extends StatefulWidget {
   final Scheda scheda;
@@ -38,15 +39,12 @@ class BaseSchedaState extends State<BaseScheda> {
   Widget build(BuildContext context) {
     const String secondi = '"';
     return Scaffold(
-      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: Text(
           widget.scheda.nomeScheda,
         ),
-        backgroundColor: Colors.black,
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.black,
           child: const Icon(Icons.add),
           onPressed: () {
             showDialog(
@@ -92,8 +90,6 @@ class BaseSchedaState extends State<BaseScheda> {
                     ),
                     actions: [
                       ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black),
                           onPressed: () {
                             Esercizio esercizio = Esercizio(
                               nomeEsercizio: cNomeEsercizio.text,
@@ -104,6 +100,12 @@ class BaseSchedaState extends State<BaseScheda> {
                               carichi: cCarichi.text,
                               appunti: cAppunti.text,
                             );
+                            cNomeEsercizio.clear();
+                            cRipetizioni.clear();
+                            cSerie.clear();
+                            cTempoPausa.clear();
+                            cCarichi.clear();
+                            cAppunti.clear();
 
                             _dbHelper.createEsercizio(esercizio);
 
@@ -114,8 +116,6 @@ class BaseSchedaState extends State<BaseScheda> {
                           },
                           child: const Text("Aggiungi")),
                       ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black),
                           onPressed: () {
                             Navigator.pop(contex);
                           },
@@ -147,57 +147,110 @@ class BaseSchedaState extends State<BaseScheda> {
                       ),
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      contentPadding:
-                          const EdgeInsets.only(right: 15, left: 15),
-                      isThreeLine: true,
-                      title: Text(
-                        snapshot.data![index].nomeEsercizio,
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 19),
-                      ),
-                      subtitle: Text(
-                        "${snapshot.data![index].serie} x ${snapshot.data![index].ripetizioni}  \nPausa: ${snapshot.data![index].tempoPausa}$secondi",
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 15),
-                      ),
-                      trailing: const Icon(Icons.navigate_next),
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                scrollable: true,
-                                content: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      "Carichi",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      snapshot.data![index].carichi.toString(),
-                                    ),
-                                    const SizedBox(
-                                      height: 4,
-                                    ),
-                                    const Text(
-                                      "Appunti",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      snapshot.data![index].appunti.toString(),
-                                    ),
+                    return Slidable(
+                      startActionPane: ActionPane(
+                        motion: const StretchMotion(),
+                        children: [
+                          SlidableAction(
+                            onPressed: (_) {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text("Eliminazione Esercizio"),
+                                  content: const Text(
+                                      "Si desidera davvero eliminare l'esercizio selezionato?"),
+                                  icon: const Icon(Icons.delete),
+                                  iconColor: Colors.red,
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          _dbHelper.removeEsercizio(
+                                              snapshot.data![index].id!);
+                                          setState(() {
+                                            _esercizi = _dbHelper.getEsercizi();
+                                          });
+                                          Navigator.of(context).pop();
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                            backgroundColor: Color(0xFF202020),
+                                            duration: Duration(seconds: 1),
+                                            content: Text(
+                                              "Esercizio eliminato!",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ));
+                                        },
+                                        child: const Text("Sì")),
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text("No")),
                                   ],
                                 ),
                               );
-                            });
-                      },
+                            },
+                            icon: Icons.delete,
+                            foregroundColor: Colors.red,
+                            backgroundColor: const Color(0xFF202020),
+                            label: "Elimina",
+                          ),
+                        ],
+                      ),
+                      child: ListTile(
+                        contentPadding:
+                            const EdgeInsets.only(right: 15, left: 15),
+                        isThreeLine: true,
+                        title: Text(
+                          snapshot.data![index].nomeEsercizio,
+                          style: const TextStyle(fontSize: 19),
+                        ),
+                        subtitle: Text(
+                          "${snapshot.data![index].serie} x ${snapshot.data![index].ripetizioni}  \nPausa: ${snapshot.data![index].tempoPausa}$secondi",
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                        trailing: const Icon(Icons.navigate_next),
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  scrollable: true,
+                                  content: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        "Carichi",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        snapshot.data![index].carichi
+                                            .toString(),
+                                      ),
+                                      const SizedBox(
+                                        height: 4,
+                                      ),
+                                      const Text(
+                                        "Appunti",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        snapshot.data![index].appunti
+                                            .toString(),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              });
+                        },
+                      ),
                     );
                   });
             }

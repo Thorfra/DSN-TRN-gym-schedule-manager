@@ -18,6 +18,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.9.2
 
 flutter:
   uses-material-design: true
@@ -25,3 +26,9 @@ flutter:
     - assets/
     - assets/images/
     - assets/images/logo/
+    - assets/images/icona/
+
+flutter_icons:
+  android: true
+  image_path: "assets/icona/logo21x21.png"
+ 

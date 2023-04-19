@@ -1,6 +1,6 @@
+import 'package:dsn_trn_gym_schedule_manager1/themes.dart';
 import 'package:flutter/material.dart';
 import 'pagine/crea_mod_schede.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MainApp());
@@ -13,10 +13,9 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: GoogleFonts.bebasNeue().fontFamily,
-        primarySwatch: Colors.grey,
-      ),
+      theme: ThemeClass.lightTheme,
+      darkTheme: ThemeClass.darkTheme,
+      themeMode: ThemeMode.system,
       home: const MyHome(),
     );
   }
@@ -28,23 +27,21 @@ class MyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: const Text("Home page"),
-        backgroundColor: Colors.black,
       ),
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           const Image(
-            image: AssetImage('assets/images/logo/2.0x/logo.jpg'),
+            image: AssetImage('assets/images/logo/logo256x256.png'),
           ),
           const SizedBox(height: 10),
           ElevatedButton.icon(
-            icon: const Icon(Icons.arrow_forward),
-            label: const Text("Vai alle schede"),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.black,
+            label: const Text(
+              "Vai alle schede",
+              style: TextStyle(fontSize: 16),
             ),
+            icon: const Icon(Icons.arrow_forward),
             onPressed: () {
               Navigator.push(
                   context,
