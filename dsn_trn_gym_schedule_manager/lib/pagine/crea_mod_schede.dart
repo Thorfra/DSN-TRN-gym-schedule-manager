@@ -34,12 +34,14 @@ class _CreaModSchedeState extends State<CreaModSchede> {
       appBar: AppBar(
         title: const Text("Crea o modifica le schede"),
       ),
+      //pulsante aggiunta scheda
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () {
             showDialog(
                 context: context,
                 builder: (contex) {
+                  //finestra d'inserimento
                   return AlertDialog(
                     title: const Text("Inserimento nuova scheda"),
                     content: Column(
@@ -51,6 +53,7 @@ class _CreaModSchedeState extends State<CreaModSchede> {
                         ),
                       ],
                     ),
+                    //pulsanti aggiungi e annulla
                     actions: [
                       ElevatedButton(
                           onPressed: () {
@@ -71,12 +74,14 @@ class _CreaModSchedeState extends State<CreaModSchede> {
                       ElevatedButton(
                           onPressed: () {
                             Navigator.pop(contex);
+                            c1.clear();
                           },
                           child: const Text("Annulla")),
                     ],
                   );
                 });
           }),
+      //lista delle schede
       body: FutureBuilder(
           future: _schede,
           builder: (context, AsyncSnapshot<List<Scheda>> snapshot) {
@@ -100,6 +105,7 @@ class _CreaModSchedeState extends State<CreaModSchede> {
                       startActionPane: ActionPane(
                         motion: const StretchMotion(),
                         children: [
+                          //azione per eliminare la scheda
                           SlidableAction(
                             onPressed: (_) {
                               showDialog(
@@ -148,6 +154,7 @@ class _CreaModSchedeState extends State<CreaModSchede> {
                           ),
                         ],
                       ),
+                      //list tile della scheda
                       child: ListTile(
                         title: Text(snapshot.data![index].nomeScheda),
                         subtitle: const Text("Clicca per vedere la scheda"),

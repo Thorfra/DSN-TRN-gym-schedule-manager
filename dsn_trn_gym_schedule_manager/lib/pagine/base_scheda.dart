@@ -44,12 +44,14 @@ class BaseSchedaState extends State<BaseScheda> {
           widget.scheda.nomeScheda,
         ),
       ),
+      //pulsante aggiunta esercizi
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () {
             showDialog(
                 context: context,
                 builder: (contex) {
+                  //finestra per l'inserimento
                   return AlertDialog(
                     scrollable: true,
                     title: const Text("Inserimento esercizio"),
@@ -89,6 +91,7 @@ class BaseSchedaState extends State<BaseScheda> {
                       ],
                     ),
                     actions: [
+                      //pulsanti "aggiungi" e "annulla"
                       ElevatedButton(
                           onPressed: () {
                             Esercizio esercizio = Esercizio(
@@ -118,12 +121,19 @@ class BaseSchedaState extends State<BaseScheda> {
                       ElevatedButton(
                           onPressed: () {
                             Navigator.pop(contex);
+                            cNomeEsercizio.clear();
+                            cRipetizioni.clear();
+                            cSerie.clear();
+                            cTempoPausa.clear();
+                            cCarichi.clear();
+                            cAppunti.clear();
                           },
                           child: const Text("Annulla")),
                     ],
                   );
                 });
           }),
+      //elenco esercizi
       body: FutureBuilder(
           future: _esercizi,
           builder: (context, AsyncSnapshot<List<Esercizio>> snapshot) {
@@ -147,6 +157,7 @@ class BaseSchedaState extends State<BaseScheda> {
                       ),
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
+                    //funzione elimina e modifica
                     return Slidable(
                       startActionPane: ActionPane(
                         motion: const StretchMotion(),
@@ -195,6 +206,13 @@ class BaseSchedaState extends State<BaseScheda> {
                             foregroundColor: Colors.red,
                             backgroundColor: const Color(0xFF202020),
                             label: "Elimina",
+                          ),
+                          SlidableAction(
+                            onPressed: (_) {},
+                            icon: Icons.edit,
+                            foregroundColor: Colors.grey,
+                            backgroundColor: const Color(0xFF202020),
+                            label: "Modifica",
                           ),
                         ],
                       ),
