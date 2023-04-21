@@ -1,3 +1,4 @@
+import 'package:dsn_trn_gym_schedule_manager1/pagine/ModificaCampo.dart';
 import 'package:flutter/material.dart';
 import '../db/esercizio/esercizio.dart';
 import '../db/scheda/scheda.dart';
@@ -162,6 +163,7 @@ class BaseSchedaState extends State<BaseScheda> {
                       startActionPane: ActionPane(
                         motion: const StretchMotion(),
                         children: [
+                          //elimina
                           SlidableAction(
                             onPressed: (_) {
                               showDialog(
@@ -207,8 +209,48 @@ class BaseSchedaState extends State<BaseScheda> {
                             backgroundColor: const Color(0xFF202020),
                             label: "Elimina",
                           ),
+                          //modifica
                           SlidableAction(
-                            onPressed: (_) {},
+                            onPressed: (_) {
+                              AlertDialog(
+                                title: const Text("Modifica Esercizio"),
+                                content: Column(
+                                  children: [
+                                    ModificaCampo(
+                                        testo:
+                                            snapshot.data![index].nomeEsercizio,
+                                        controller: cNomeEsercizio)
+                                  ],
+                                ),
+                                //pulsanti aggiungi e annulla
+                                actions: [
+                                  /*
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        String nome = c1.text;
+                                        Scheda scheda = Scheda(
+                                          nomeScheda: nome,
+                                        );
+
+                                        _dbHelper.createScheda(scheda);
+
+                                        setState(() {
+                                          _schede = _dbHelper.getSchede();
+                                        });
+                                        Navigator.pop(contex);
+                                        c1.clear();
+                                      },
+                                      
+                                      child: const Text("Aggiungi")),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pop(contex);
+                                        c1.clear();
+                                      },
+                                      child: const Text("Annulla")),*/
+                                ],
+                              );
+                            },
                             icon: Icons.edit,
                             foregroundColor: Colors.grey,
                             backgroundColor: const Color(0xFF202020),
